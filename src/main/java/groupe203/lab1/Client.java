@@ -3,7 +3,6 @@ package groupe203.lab1;
 import java.util.List;
 
 public class Client {
-
     private int id;
     private String firstName;
     private String lastName;

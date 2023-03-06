@@ -10,9 +10,7 @@ public class Category {
     private String description;
     private String image;
     private byte[] image2;
-
     private List<Product> productList;
-
     public List<Product> getProductList() {
         return productList;
     }

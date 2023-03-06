@@ -1,5 +1,7 @@
 package groupe204.lab1.shop;
 
+import java.util.List;
+
 public class Client {
     private Long id;
     private String firstName;
@@ -9,6 +11,16 @@ public class Client {
     private String email;
 
     private User user;
+
+    private List<Order> orderList;
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
 
     public User getUser() {
         return user;

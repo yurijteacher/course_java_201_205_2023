@@ -1,0 +1,24 @@
+package lecture2.patterns.creational_patterns.factory;
+
+public class ShareFactory {
+    Share share;
+    public Share getShare(String name){
+
+        switch(name){
+            case ("квадрат"):
+                share = new Square();
+                break;
+            case ("коло"):
+                share = new Circle();
+                break;
+            case ("точка"):
+                share = new Point();
+                break;
+        }
+
+        return share;
+    }
+
+
+
+}
