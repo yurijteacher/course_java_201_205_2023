@@ -15,7 +15,9 @@ public class Main {
         Share square = factory.getShare("квадрат");
         square.draw(5,6);
 
-
+        Share share1 = new Square();
+        Share share2 = new Circle();
+        Share share3 = new Point();
 
     }
 }

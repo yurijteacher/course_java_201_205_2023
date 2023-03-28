@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <import resource="apple.xml"/>
+    <import resource="samsung.xml"/>
+    <import resource="ibm.xml"/>
+    <import resource="sony.xml"/>
+    <import resource="toshiba.xml"/>
+
+    <bean id="t1000" class="lecture3.robot.robotT1000.RobotT1000">
+    <property name="body" ref="sonyBody"/>
+    <property name="hand" ref="sonyHand"/>
+    <property name="leg" ref="sonyLeg"/>
+    <property name="head" ref="appleHead"/>
+    <property name="color" value="red"/>
+    <property name="model" value="T1000"/>
+    </bean>
+
+
+    <context:annotation-config/>
+    <context:component-scan base-package="lecture3"/>
+
+    <bean class="lecture3.robot.robotT1000.RobotT1000" id="t2000"/>
+
+    <bean class="lecture3.robot.robotT1000.RobotT1000" id="t3000">
+        <constructor-arg value="red" index="0" type="java.lang.String"/>
+        <constructor-arg value="t3000" index="1" type="java.lang.String"/>
+    </bean>
+
+
+
+</beans>

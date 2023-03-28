@@ -2,6 +2,9 @@ package groupe203.practical1.realization_interface;
 
 public interface MyInterface {
 
+    final int a = 5;
+    static int a2 = 6;
+
     public double add(double x, double y);
 
     double sub(double x, double y);
