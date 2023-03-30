@@ -9,4 +9,5 @@ public interface GeneralDao<T> {
     void deleteAll();
     List<T> findAll();
     T findById(Long id);
+
 }

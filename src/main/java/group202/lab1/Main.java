@@ -20,11 +20,14 @@ public class Main {
         category1.setDescription("asd sad sad asd");
         category1.setImage("/category/apple.jpg");
 
+        System.out.println(category1.toString());
+
 
         Category category2 = new Category(2, "car", "asdsa","/category/car.jpg");
         Category category3 = new Category(3, "wine", "asd sad sad ","/category/wine.jpg");
 
         List<Category> categoryList = new ArrayList<>();
+
         categoryList.add(category1);
         categoryList.add(category2);
         categoryList.add(category3);

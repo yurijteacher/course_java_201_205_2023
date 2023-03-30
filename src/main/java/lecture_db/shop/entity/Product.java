@@ -7,16 +7,16 @@ import java.math.BigDecimal;
 public class Product {
 
     private Long id;
-
     private String name;
     private String description;
-
     private String image;
-
     private BigDecimal price;
-
     private Category category;
 
+    // private Long categoryId;
+
+    public Product() {
+    }
     public Product(Long id, String name, String description, String image, BigDecimal price, Category category) {
         this.id = id;
         this.name = name;
@@ -40,16 +40,6 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public Product() {
-    }
-
-    public Product(Long id, String name, String description, String image) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.image = image;
     }
 
     public Long getId() {

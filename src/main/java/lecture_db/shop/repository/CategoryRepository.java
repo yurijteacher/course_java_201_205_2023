@@ -5,9 +5,8 @@ import lecture_db.shop.config.ConnectionToDB;
 import lecture_db.shop.dao.CategoryDao;
 import lecture_db.shop.entity.Category;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryRepository extends ConnectionToDB implements CategoryDao{
@@ -15,42 +14,148 @@ public class CategoryRepository extends ConnectionToDB implements CategoryDao{
     private final Connection connection;
 
     public CategoryRepository() {
-        this.connection = getConnection("jdbc:mysql://localhost:3306/shop_201_205_2023", "root", "root1234");
+        this.connection = super.getConnection("jdbc:mysql://localhost:3306/shop_201_205_2023", "root", "root1234");
     }
 
+    // Statement - QSL - 1,2,3,4
+    // PreparedStatement - SQL - 1...2...3...4
+    // CallableStatement SQL -Server MySQL (call procedure 1...2...3...4)
 
     @Override
     public void save(Category obj) {
+
+        Statement statement = null;
+
+        try {
+
+            statement = connection.createStatement();
+            statement.execute("INSERT INTO `category` (`name`, `description`, `image`) " +
+                    "VALUES ('"+obj.getName()+"', '"+obj.getDescription()+" ', '"+obj.getImage()+"');");
+            statement.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void update(Category obj) {
+        Statement statement = null;
+
+        try {
+            statement = connection.createStatement();
+            statement.executeUpdate("UPDATE `category` SET `name` = '"+obj.getName()+"', `description` = '"+obj.getDescription()+
+                    "', `image` = '"+obj.getImage()+"' WHERE (`id` = '"+obj.getId()+"');");
+
+            statement.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void delete(Category obj) {
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+
+            statement.executeUpdate("delete FROM `category` WHERE `id` = '"+obj.getId()+"';");
+
+            statement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if(statement!=null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void deleteAll() {
         try {
             Statement statement = connection.createStatement();
-            statement.execute("INSERT INTO `shop_201_205_2023`.`category` (`name`, `description`, `image`) VALUES ('"+obj.getName()+"', '"+obj.getDescription()+" ', '"+obj.getImage()+"');");
+            statement.executeUpdate("delete FROM `category`");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public void update(Category obj) {
-
-    }
-
-    @Override
-    public void delete(Category obj) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
-
-    @Override
     public List<Category> findAll() {
-        return null;
+
+        List<Category> categories = new ArrayList<>();
+
+        try {
+          Statement  statement = connection.createStatement();
+
+          ResultSet resultSet = statement.executeQuery("SELECT * FROM `category`");
+
+            while (resultSet.next()){
+
+                categories.add(new Category(resultSet.getLong("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"),
+                        resultSet.getString("image")
+                        ));
+            }
+
+            resultSet.close();
+            statement.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return categories;
     }
 
     @Override
-    public Category findById(Long id) {
-        return null;
+    public Category findById(Long id1) {
+
+        Category category = null;
+
+        try {
+            Statement  statement = connection.createStatement();
+            ResultSet  resultSet = statement.executeQuery("SELECT * FROM `category` where id="+id1);
+
+            while (resultSet.next()){
+
+                category = new Category(resultSet.getLong("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"),
+                        resultSet.getString("image")
+                );
+            }
+
+            resultSet.close();
+            statement.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return category;
     }
 }

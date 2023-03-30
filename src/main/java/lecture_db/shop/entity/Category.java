@@ -8,8 +8,7 @@ public class Category {
     private String image;
 
 
-    public Category() {
-    }
+    public Category() {}
 
     public Category(Long id, String name, String description, String image) {
         this.id = id;
