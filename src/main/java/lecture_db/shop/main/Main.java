@@ -2,7 +2,9 @@ package lecture_db.shop.main;
 
 import lecture_db.shop.config.ConnectionToDB;
 import lecture_db.shop.entity.Category;
+import lecture_db.shop.entity.User;
 import lecture_db.shop.repository.CategoryRepository;
+import lecture_db.shop.repository.UserRepository;
 
 import java.util.List;
 
@@ -44,6 +46,31 @@ public class Main extends ConnectionToDB {
             System.out.println(">>" + el);
         }
 
+
+        UserRepository userRepository = new UserRepository();
+
+//        User user = new User("Ivanka", "1111");
+
+
+//        userRepository.save(user);
+
+        User user = new User(1, "Ivanka", "1111");
+
+        user.setUsername("Iva");
+
+//        userRepository.update(user);
+
+        List<User> users = userRepository.findAll();
+
+
+        for (User el : users
+             ) {
+            System.out.println(el);
+        }
+
+
+        User user1 = userRepository.findById(1L);
+        System.out.println(">>" + user1);
     }
 
 

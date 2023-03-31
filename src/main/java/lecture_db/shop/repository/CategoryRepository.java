@@ -11,10 +11,14 @@ import java.util.List;
 
 public class CategoryRepository extends ConnectionToDB implements CategoryDao{
 
+    public final static String url = "jdbc:mysql://localhost:3306/shop_201_205_2023";
+    public final static String username = "root";
+    public final static String password = "root1234";
+
     private final Connection connection;
 
     public CategoryRepository() {
-        this.connection = super.getConnection("jdbc:mysql://localhost:3306/shop_201_205_2023", "root", "root1234");
+        this.connection = super.getConnection(url, username, password);
     }
 
     // Statement - QSL - 1,2,3,4
@@ -29,8 +33,7 @@ public class CategoryRepository extends ConnectionToDB implements CategoryDao{
         try {
 
             statement = connection.createStatement();
-            statement.execute("INSERT INTO `category` (`name`, `description`, `image`) " +
-                    "VALUES ('"+obj.getName()+"', '"+obj.getDescription()+" ', '"+obj.getImage()+"');");
+            statement.execute("INSERT INTO `category` (`name`, `description`, `image`) VALUES ('"+obj.getName()+"', '"+obj.getDescription()+" ', '"+obj.getImage()+"');");
             statement.close();
 
         } catch (SQLException e) {
